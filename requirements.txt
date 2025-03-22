@@ -1,0 +1,11 @@
+asgiref==3.8.1
+Django==5.1.2
+sqlparse==0.5.1
+tzdata==2024.2
+django-extensions==3.2.1                 
+python-decouple==3.8
+Pillow==10.0.0
+django-filter==23.1
+requests==2.31.0
+djangorestframework==3.14.0
+django-cors-headers>=4.2.0

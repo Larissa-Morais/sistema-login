@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barbie World</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" href="../images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
 </head>
 
 <body>
@@ -14,29 +15,29 @@
         
         <div class="leftside"> 
             <div class="image-barbie">
-            <img src="../images/image-barbie.png" alt="Imagem do nome da Barbie">
+                <img src="{% static 'images/image-barbie.png' %}" alt="Imagem do nome da Barbie">
+            </div>
         </div>
-    </div>
        
         <div class="right-side">
             
             <form action="login.html">
            
-             <img class="logo-barbie" src="../images/logo-barbie.png" alt="logo da barbie">
+             <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
            
             <div class="input-user">
-                <img src="../images/user-icon.png" alt="icone de usuário">
+                <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
                 <input type="user" placeholder="Digite seu nome de usuário" required >
              </div>
             
              <div class="input-password">
-                <img src="../images/password-icon.png" alt="icone de senha">
+                <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
                 <input type="password" placeholder="Digite sua senha" required>
             </div>
 
             <div class="input-password">
-                <img src="../images/password-icon.png" alt="icone de senha">
-                <input type="password" placeholder="Comfirme sua senha" required>
+                <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                <input type="password" placeholder="Confirme sua senha" required>
             </div>
         
             <button class="botao">Entrar</button>

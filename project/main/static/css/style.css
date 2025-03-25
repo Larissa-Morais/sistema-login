@@ -183,52 +183,5 @@ input:focus {
     
 }
 
-/* Responsividade para telas grandes (Desktop) */
-@media (min-width: 1024px) {
-
-    .container {
-        flex-direction: row; 
-    }
-
-    .left-side, .right-side {
-        margin: 2rem; 
-    }
-
-    .left-side {
-        margin-left: 3rem; 
-    }
-
-    .right-side {
-        margin-right: 3rem; 
-    }
-
-    .form-register, .form-login {
-        width: 30rem; 
-        height: auto; 
-    }
-
-    .input-user input, .input-password input {
-        width: 20rem; 
-    }
-
-    .botao {
-        width: 10rem; 
-        left: 7rem; 
-    }
-
-    .register-link, .login-link {
-        top: 2rem;
-    }
-
-    .logo-barbie {
-        left: 3rem;
-        height: 8rem; 
-    }
-
-    .image-barbie {
-        margin: 3rem; 
-    }
-}
-
 
 

@@ -28,7 +28,7 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    margin: 10rem;
+    margin: 9rem;
     
 }
 
@@ -55,21 +55,21 @@ form{
     border-radius: 4%;
 }
 
-.input-email{
+.input-user{
     position: relative;
     left: 2.5rem;
     display: flex;
 }
 
 
-.input-email img {
+.input-user img {
     height: 1rem;
     position: relative;
     right: 6px;
     top: 0.8rem;
 }
 
-.input-email input {
+.input-user input {
     height: 2.5rem;
     width: 18rem;
     border-color: transparent;

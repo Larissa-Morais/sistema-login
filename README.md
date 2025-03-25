@@ -42,6 +42,11 @@ Com o ambiente virtual ativado, instale as dependências do projeto:
 pip install -r requirements.txt
 ```
 
+Antes de seguir, acesse o diretório principal do projeto:
+```bash
+cd project
+```
+
 ### 4. Configuração do Banco de Dados
 O projeto usa um banco de dados SQLite por padrão, que será criado automaticamente ao rodar as migrações. Para configurar o banco de dados, aplique as migrações do Django:
 ```bash

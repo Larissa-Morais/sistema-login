@@ -133,7 +133,44 @@ input:focus {
     cursor: pointer;
 }
 
+.botao:hover {
+    background-color: #960b60;
+    transition: 5ms;
 
+
+}
+
+.register-link{
+    color:#ca1785;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 3rem;
+}
+
+.register-link a{
+    color: #960b60;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
+
+.login-link{
+    color:#ca1785;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 3rem;
+}
+
+.login-link a{
+    color: #960b60;
+    font-weight: bold;
+    text-decoration: none;
+    
+}
 
 
 

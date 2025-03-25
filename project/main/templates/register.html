@@ -23,32 +23,32 @@
             
             <div class="form-register">
                 
-            <form action="register.html">
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
            
-             <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
-           
-            <div class="input-user">
-                <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
-                <input type="user" placeholder="Digite seu nome de usuário" required >
-             </div>
+                <div class="input-user">
+                    <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
+                    <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
+                </div>
             
-             <div class="input-password">
-                <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
-                <input type="password" placeholder="Digite sua senha" required>
-            </div>
+                <div class="input-password">
+                    <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                    <input type="password" name="password" placeholder="Digite sua senha" required>
+                </div>
 
-            <div class="input-password">
-                <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
-                <input type="password" placeholder="Confirme sua senha" required>
-            </div>
+                <div class="input-password">
+                    <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                    <input type="password" name="password_check" placeholder="Confirme sua senha" required>
+                </div>
         
-            <button class="botao">Entrar</button>
+                <button class="botao" type="submit">Cadastrar</button>
 
-            <div class="login-link">
-                <p>Já possui uma conta? <a href="{% url 'login_page' %}"> Faça login aqui!</a></p>
-            </div>
-        </form>
-    </div>
+                <div class="login-link">
+                    <p>Já possui uma conta? <a href="{% url 'login_page' %}"> Faça login aqui!</a></p>
+                </div>
+            </form>
+        </div>
 
     </div>
     </div>

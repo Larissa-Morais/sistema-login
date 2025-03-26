@@ -7,19 +7,31 @@
     <title>Barbie World</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+    <style>
+        /* Estilização do popup */
+        .popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Popup para exibir mensagens -->
+    <div id="popup" class="popup"></div>
+
     <div class="container">
-
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <p class="message success">{{ message }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-
         <div class="leftside"> 
             <div class="image-barbie">
                 <img src="{% static 'images/image-barbie.png' %}" alt="Imagem do nome da Barbie">
@@ -27,31 +39,80 @@
         </div>
 
         <div class="right-side">
-
             <div class="form-login">
-                
-            <form action="login.html">
-                <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
+                <form id="login-form" method="POST">
+                    {% csrf_token %}
+                    <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
 
-                <div class="input-user">
-                    <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
-                    <input type="user" placeholder="Digite seu nome de usuário" required>
-                </div>
+                    <div class="input-user">
+                        <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
+                        <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
+                    </div>
 
-                <div class="input-password">
-                    <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
-                    <input type="password" placeholder="Digite sua senha" required>
-                </div>
+                    <div class="input-password">
+                        <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                        <input type="password" name="password" placeholder="Digite sua senha" required>
+                    </div>
 
-                <button class="botao">Entrar</button>
+                    <button class="botao" type="submit">Entrar</button>
 
-                <div class="register-link">
-                    <p>Não tem uma conta? <a href="{% url 'register_page' %}"> Cadastra-se aqui!</a></p>
-                </div>
-            </form>
-        </div>
-            
+                    <div class="register-link">
+                        <p>Não tem uma conta? <a href="{% url 'register_page' %}"> Cadastra-se aqui!</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Obtendo o CSRF token
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Captura do formulário de login
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+            let data = {
+                username: formData.get('username'),
+                password: formData.get('password')
+            };
+
+            fetch("{% url 'login' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status) {
+                    // Redireciona para a página inicial em caso de sucesso
+                    window.location.href = "{% url 'home' %}";
+                } else if (data.error) {
+                    showPopup(data.error, false);  // Exibe o erro no popup
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                showPopup('Ocorreu um erro desconhecido.', false);
+            });
+        });
+
+        // Função para exibir o popup de erro
+        function showPopup(message, success) {
+            let popup = document.getElementById("popup");
+            popup.innerHTML = message;
+            popup.style.backgroundColor = success ? "green" : "red";
+            popup.style.display = "block";
+
+            // Esconde o popup depois de 3 segundos
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

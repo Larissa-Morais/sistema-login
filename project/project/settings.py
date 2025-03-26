@@ -124,6 +124,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
+
+ARGON2_PARAMETERS = {
+    'time_cost': 2,  
+    'memory_cost': 102400,
+    'parallelism': 8,
+}
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

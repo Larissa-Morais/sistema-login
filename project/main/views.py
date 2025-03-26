@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from .serializers import LoginSerializer, RegisterSerializer
-from django.contrib import messages
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
 
 # Função para renderizar a página de login
 def login_page(request):
@@ -23,14 +24,17 @@ def home(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_view(request):
-    serializer = LoginSerializer(data=request.data)
-    
-    if serializer.is_valid():
-        user = serializer.validated_data
-        return Response({"status": "Login realizado com sucesso!"}, status=status.HTTP_200_OK)
-    
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    username = request.data.get('username')
+    password = request.data.get('password')
 
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+        return Response({"status": "Login realizado com sucesso!"}, status=200)
+    else:
+        return Response({"error": "Credenciais inválidas!"}, status=400)
+    
 # API para realizar o registro
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -38,12 +42,12 @@ def register_view(request):
     username = request.data.get('username')
 
     if User.objects.filter(username=username).exists():
-        return Response({"error": "Nome de usuário já cadastrado."}, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"error": "Nome de usuário já cadastrado."}, status=400)
 
     serializer = RegisterSerializer(data=request.data)
     
     if serializer.is_valid():
         serializer.save()
-        messages.success(request, "Cadastro realizado com sucesso!")
-        return redirect('login_page')
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse({"message": "Cadastro realizado com sucesso!"})
+    
+    return JsonResponse(serializer.errors, status=400)

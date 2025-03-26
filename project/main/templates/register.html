@@ -7,50 +7,115 @@
     <title>Barbie World</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+    <style>
+        /* Estilização do popup */
+        .popup {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    
+    <!-- Popup para exibir mensagens -->
+    <div id="popup" class="popup"></div>
+
     <div class="container">
-        
         <div class="leftside"> 
             <div class="image-barbie">
                 <img src="{% static 'images/image-barbie.png' %}" alt="Imagem do nome da Barbie">
             </div>
         </div>
-       
+
         <div class="right-side">
-            
             <div class="form-register">
-                
-            <form method="POST" action="{% url 'register' %}">
-                {% csrf_token %}
-                <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
-           
-                <div class="input-user">
-                    <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
-                    <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
-                </div>
-            
-                <div class="input-password">
-                    <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
-                    <input type="password" name="password" placeholder="Digite sua senha" required>
-                </div>
+                <form method="POST" action="{% url 'register' %}" id="register-form">
+                    {% csrf_token %}
+                    <img class="logo-barbie" src="{% static 'images/logo-barbie.png' %}" alt="logo da barbie">
 
-                <div class="input-password">
-                    <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
-                    <input type="password" name="password_check" placeholder="Confirme sua senha" required>
-                </div>
-        
-                <button class="botao" type="submit">Cadastrar</button>
+                    <div class="input-user">
+                        <img src="{% static 'images/user-icon.png' %}" alt="icone de usuário">
+                        <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
+                    </div>
 
-                <div class="login-link">
-                    <p>Já possui uma conta? <a href="{% url 'login_page' %}"> Faça login aqui!</a></p>
-                </div>
-            </form>
+                    <div class="input-password">
+                        <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                        <input type="password" name="password" placeholder="Digite sua senha" required>
+                    </div>
+
+                    <div class="input-password">
+                        <img src="{% static 'images/password-icon.png' %}" alt="icone de senha">
+                        <input type="password" name="password_check" placeholder="Confirme sua senha" required>
+                    </div>
+
+                    <button class="botao" type="submit">Cadastrar</button>
+
+                    <div class="login-link">
+                        <p>Já possui uma conta? <a href="{% url 'login_page' %}"> Faça login aqui!</a></p>
+                    </div>
+                </form>
+            </div>
         </div>
+    </div>
 
-    </div>
-    </div>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let formData = new FormData(this);
+
+            fetch("{% url 'register' %}", {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json().then(data => ({ status: response.status, body: data })))
+            .then(({ status, body }) => {
+                if (status === 400) {
+                    let errorMessages = "";
+                    for (let field in body) {
+                        if (Array.isArray(body[field])) {
+                            body[field].forEach(message => {
+                                errorMessages += `<p>${message}</p>`;
+                            });
+                        } else {
+                            errorMessages += `<p>${body[field]}</p>`;
+                        }
+                    }
+                    showPopup(errorMessages, false);
+                } else {
+                    showPopup("Cadastro realizado com sucesso!", true);
+                    setTimeout(() => {
+                        window.location.href = "{% url 'login_page' %}";
+                    }, 2000);
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+                showPopup("Ocorreu um erro desconhecido.", false);
+            });
+        });
+
+        function showPopup(message, success) {
+            let popup = document.getElementById("popup");
+            popup.innerHTML = message;
+            popup.style.backgroundColor = success ? "green" : "red";
+            popup.style.display = "block";
+
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

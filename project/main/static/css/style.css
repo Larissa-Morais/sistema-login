@@ -183,5 +183,49 @@ input:focus {
     
 }
 
+/* Estilo para a exibição de mensagens de erro */
+.error-messages {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #f5c6cb;
+    font-size: 14px;
+    display: none; /* Inicialmente escondido */
+}
+
+/* Estilo para as mensagens de erro individuais */
+.error-messages p {
+    margin: 0;
+    padding: 5px 0;
+}
+
+/* Estilo para mensagens de erro */
+.messages {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    width: 80%;
+    text-align: center;
+}
+
+.message.error {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+
 
 

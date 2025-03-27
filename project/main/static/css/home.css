@@ -1,0 +1,107 @@
+/* Fonte barbie*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+
+
+/* Estilo geral */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    color: #444;
+}
+
+body {
+    background-color: #f6f3f3;
+}
+
+/* Barra superior */
+.top-bar {
+    background-color: white;
+    padding: 8px 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Navbar */
+.nav-bar {
+    display: flex;
+    align-items: center;
+    background-color: #ff40a5;
+    padding: 12px 20px;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 28px;
+    color: white;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a, .btn {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.btn {
+    margin-right: 300px;
+    padding: 5px 10px;
+    background-color: #d62491;
+    border-radius: 5px;
+}
+
+/* Campo de busca */
+.search {
+    display: flex;
+    background-color: white;
+    border-radius: 50px;
+    padding: 5px;
+    align-items: center;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    padding: 5px;
+    width: 450px;
+    border-radius: 30px;
+}
+
+/* Categorias */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.category {
+    text-align: center;
+}
+
+.category img {
+    width: 200px;
+    height: 230px;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.category p {
+    font-weight: bold;
+    margin-top: 5px;
+}
